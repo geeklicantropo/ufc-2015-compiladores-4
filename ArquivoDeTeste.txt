@@ -1,0 +1,1 @@
+Esse é um arquivo para testar o git no googlecode
