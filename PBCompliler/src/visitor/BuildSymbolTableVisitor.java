@@ -1,18 +1,16 @@
 package visitor;
 import syntaxtree.*;
-import java.util.Hashtable;
-import java.util.Enumeration;
 
 public class BuildSymbolTableVisitor extends TypeDepthFirstVisitor {
 
-    SymbolTableVisitor symbolTableVisitor;
+    SymbolTable symbolTable;
 
     public BuildSymbolTableVisitor(){
-	symbolTableVisitor = new SymbolTableVisitor();
+	symbolTable = new SymbolTable();
     }
 
-    public SymbolTableVisitor getSymTab(){
-	return symbolTableVisitor;
+    public SymbolTable getSymTab(){
+	return symbolTable;
     }
 
     private Class currClass;
@@ -32,8 +30,8 @@ public class BuildSymbolTableVisitor extends TypeDepthFirstVisitor {
   // Identifier i1,i2;
   // Statement s;
   public Type visit(MainClass n) {
-     symbolTableVisitor.addClass( n.i1.toString(), null); 
-     currClass = symbolTableVisitor.getClass(n.i1.toString());
+     symbolTable.addClass( n.i1.toString(), null); 
+     currClass = symbolTable.getClass(n.i1.toString());
       
     //this is an ugly hack.. but its not worth having a Void and
     //String[] type just for one occourance
@@ -51,12 +49,12 @@ public class BuildSymbolTableVisitor extends TypeDepthFirstVisitor {
   // VarDeclList vl;
   // MethodDeclList ml;
   public Type visit(ClassDeclSimple n) {
-    if(!symbolTableVisitor.addClass( n.i.toString(), null)){
+    if(!symbolTable.addClass( n.i.toString(), null)){
 	System.out.println("Class " +  n.i.toString()
 			   + "is already defined" ); 
 	System.exit(-1);
     }
-    currClass =  symbolTableVisitor.getClass(n.i.toString());
+    currClass =  symbolTable.getClass(n.i.toString());
     for ( int i = 0; i < n.vl.size(); i++ ) {
         n.vl.elementAt(i).accept(this);
     }
@@ -71,12 +69,12 @@ public class BuildSymbolTableVisitor extends TypeDepthFirstVisitor {
   // VarDeclList vl;
   // MethodDeclList ml;
   public Type visit(ClassDeclExtends n) {
-    if(!symbolTableVisitor.addClass( n.i.toString(),  n.j.toString())){
+    if(!symbolTable.addClass( n.i.toString(),  n.j.toString())){
 	System.out.println("Class " +  n.i.toString()
 			   + "is already defined" ); 
 	System.exit(-1);
     }
-    currClass = symbolTableVisitor.getClass(n.i.toString());
+    currClass = symbolTable.getClass(n.i.toString());
   
     for ( int i = 0; i < n.vl.size(); i++ ) {
         n.vl.elementAt(i).accept(this);
