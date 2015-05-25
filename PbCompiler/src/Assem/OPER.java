@@ -1,11 +1,19 @@
 package Assem;
 
-import Temp.Temp;
-
 public class OPER extends Instr {
+   public Temp.TempList dst;   
+   public Temp.TempList src;
+   public Targets jump;
 
-	// o ultimo Temp t nao eh Temp, mas nao sei o q deveria ser
-    public OPER(String a, Temp[] d, Temp[] s, Temp t) {
-    	//TODO
-    }
+   public OPER(String a, Temp.TempList d, Temp.TempList s, Temp.LabelList j) {
+      assem=a; dst=d; src=s; jump=new Targets(j);
+   }
+   public OPER(String a, Temp.TempList d, Temp.TempList s) {
+      assem=a; dst=d; src=s; jump=null;
+   }
+
+   public Temp.TempList use() {return src;}
+   public Temp.TempList def() {return dst;}
+   public Targets jumps() {return jump;}
+
 }

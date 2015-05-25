@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.ListIterator;
 import Symbol.Symbol;
 import Temp.Temp;
+import Temp.TempList;
 import Temp.Label;
 import Frame.Frame;
 import Frame.Access;
@@ -326,12 +327,12 @@ public class MipsFrame extends Frame {
 	assignCallees(0, body);
     }
 
-    private static Assem.Instr OPER(String a, Temp[] d, Temp[] s) {
+    private static Assem.Instr OPER(String a, TempList d, TempList s) {
     	return new Assem.OPER(a, d, s, null);
     }
 
     public void procEntryExit2(List<Assem.Instr> body) {
-    	body.add(OPER("#\treturn", null, returnSink));
+    	//body.add(OPER("#\treturn", null, returnSink));
     }
 
     public void procEntryExit3(List<Assem.Instr> body) {
@@ -340,13 +341,13 @@ public class MipsFrame extends Frame {
 	cursor.add(OPER("\t.text", null, null));
 	cursor.add(OPER(name + ":", null, null));
 	cursor.add(OPER(name + "_framesize=" + frameSize, null, null));
-	if (frameSize != 0) {
+	/*if (frameSize != 0) {
 	    cursor.add(OPER("\tsubu $sp " + name + "_framesize",
 			    new Temp[]{SP}, new Temp[]{SP}));
 	    body.add(OPER("\taddu $sp " + name + "_framesize",
 			  new Temp[]{SP}, new Temp[]{SP}));
 	}
-	body.add(OPER("\tj $ra", null, new Temp[]{RA}));
+	body.add(OPER("\tj $ra", null, new Temp[]{RA}));*/
     }
 
     private static Temp[] registers = {};
