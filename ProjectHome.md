@@ -1,0 +1,1 @@
+Projeto de desenvolvimento do compilador MiniJava para a disciplina de Construção de Compiladores da Universidade Federal do Ceará.
